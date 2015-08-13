@@ -50,7 +50,6 @@ function AIchoice(board)
  */
 function minimax(tboard, depth, pTurn)
 {
-    console.log("Entered Minimax");
     // Ensures computer takes the immediate win when present.
     if( (depth == 0) && (checkForWin(tboard, pTurn)) )
     {
@@ -95,9 +94,21 @@ function minimax(tboard, depth, pTurn)
             moveValue = (0 - depth);
         }
         // Computer can't think any further.
-        else if(depth >= 0)
+        else if(depth >= 1 && possibleMoves.length >= 21)
         {
-            return 0;
+            moveValue = 0;
+        }
+        else if(depth >= 2 && possibleMoves.length >= 19)
+        {
+            moveValue = 0;
+        }
+        else if(depth >= 3 && possibleMoves.length >= 15)
+        {
+            moveValue = 0;
+        }
+        else if(depth >= 4 && possibleMoves.length >= 12)
+        {
+            moveValue = 0;
         }
         // Recursively test remaining moves.
         else

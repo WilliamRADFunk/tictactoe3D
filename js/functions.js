@@ -164,6 +164,10 @@ function checkForWin(board, pTurn)
         (board[8] != 0 && board[8] == board[17] && board[17] == board[26]) || //X-Y Wins
         (board[6] != 0 && board[6] == board[16] && board[16] == board[26]) || //X-Y Wins
         (board[8] != 0 && board[8] == board[16] && board[16] == board[24]) || //X-Y Wins
+        (board[0] != 0 && board[0] == board[13] && board[13] == board[26]) || //X-Y Wins
+        (board[6] != 0 && board[6] == board[13] && board[13] == board[20]) || //X-Y Wins
+        (board[2] != 0 && board[2] == board[13] && board[13] == board[24]) || //X-Y Wins
+        (board[8] != 0 && board[8] == board[13] && board[13] == board[18]) || //X-Y Wins
         (board[0] != 0 && board[0] == board[12] && board[12] == board[24]) || //Y-Z Wins
         (board[6] != 0 && board[6] == board[12] && board[12] == board[18]) || //Y-Z Wins
         (board[1] != 0 && board[1] == board[13] && board[13] == board[25]) || //Y-Z Wins
@@ -294,7 +298,7 @@ function selectSquare(cellIndex, board, pTurn)
     if(pType == "computer" && pTurn == "2")
     {
         var nextMove = AIchoice(board);
-        pTurn = selectSquare(cellIndex, board, pTurn);
+        pTurn = selectSquare(AIchoice(board), board, pTurn);
         return pTurn;
     }
     // If human opponent, person gets to make a move.
