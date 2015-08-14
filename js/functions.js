@@ -124,56 +124,38 @@ function checkForWin(board, pTurn)
         console.log("ERROR: Player number has exceeded bounds!");
         return false;
     }
+    var i = 0;
+    var wins = [ [0, 1, 2], [0, 4, 8], [0, 3, 6], [0, 9, 18], [0, 10, 20], [0, 13, 26], [0, 12, 24], 
+                 [1, 4, 7], [1, 10, 19], [1, 13, 25],
+                 [2, 5, 8], [2, 4, 6], [2, 11, 20], [2, 10, 18], [2, 13, 24], [2, 14, 26],
+                 [3, 4, 5], [3, 12, 21], [3, 13, 23],
+                 [4, 13, 12],
+                 [5, 14, 23], [5, 13, 21],
+                 [6, 7, 8], [6, 15, 24], [6, 16, 26], [6, 13, 20], [6, 12, 18],
+                 [7, 16, 25], [7, 13, 19],
+                 [8, 17, 26], [8, 16, 24], [8, 13, 18], [8, 14, 20],
+                 [9, 10, 11], [9, 13, 17], [9, 12, 15],
+                 [10, 13, 16],
+                 [11, 14, 17], [11, 13, 15],
+                 [12, 13, 14],
+                 [15, 16, 17],
+                 [18, 19, 20], [18, 22, 26], [18, 21, 24],
+                 [19, 22, 25],
+                 [20, 23, 26], [20, 22, 24],
+                 [21, 22, 23],
+                 [24, 25, 26] ];
     // Checks all win scenarios.
-    if( (board[0] != 0 && board[0] == board[1] && board[1] == board[2]) || //X-Z Wins
-        (board[0] != 0 && board[0] == board[4] && board[4] == board[8]) || //X-Z Wins
-        (board[0] != 0 && board[0] == board[3] && board[3] == board[6]) || //X-Z Wins
-        (board[1] != 0 && board[1] == board[4] && board[4] == board[7]) || //X-Z Wins
-        (board[2] != 0 && board[2] == board[5] && board[5] == board[8]) || //X-Z Wins
-        (board[2] != 0 && board[2] == board[4] && board[4] == board[6]) || //X-Z Wins
-        (board[3] != 0 && board[3] == board[4] && board[4] == board[5]) || //X-Z Wins
-        (board[6] != 0 && board[6] == board[7] && board[7] == board[8]) || //X-Z Wins
-        (board[9] != 0 && board[9] == board[10] && board[10] == board[11]) || //X-Z Wins
-        (board[9] != 0 && board[9] == board[13] && board[13] == board[17]) || //X-Z Wins
-        (board[9] != 0 && board[9] == board[12] && board[12] == board[15]) || //X-Z Wins
-        (board[10] != 0 && board[10] == board[13] && board[13] == board[16]) || //X-Z Wins
-        (board[11] != 0 && board[11] == board[14] && board[14] == board[17]) || //X-Z Wins
-        (board[11] != 0 && board[11] == board[13] && board[13] == board[15]) || //X-Z Wins
-        (board[12] != 0 && board[12] == board[13] && board[13] == board[14]) || //X-Z Wins
-        (board[15] != 0 && board[15] == board[16] && board[16] == board[17]) || //X-Z Wins
-        (board[18] != 0 && board[18] == board[19] && board[19] == board[20]) || //X-Z Wins
-        (board[18] != 0 && board[18] == board[22] && board[22] == board[26]) || //X-Z Wins
-        (board[18] != 0 && board[18] == board[21] && board[21] == board[24]) || //X-Z Wins
-        (board[19] != 0 && board[19] == board[22] && board[22] == board[25]) || //X-Z Wins
-        (board[20] != 0 && board[20] == board[23] && board[23] == board[26]) || //X-Z Wins
-        (board[20] != 0 && board[20] == board[22] && board[22] == board[24]) || //X-Z Wins
-        (board[21] != 0 && board[21] == board[22] && board[22] == board[23]) || //X-Z Wins
-        (board[24] != 0 && board[24] == board[25] && board[25] == board[26]) || //X-Z Wins
-        (board[0] != 0 && board[0] == board[9] && board[9] == board[18]) || //X-Y Wins
-        (board[1] != 0 && board[1] == board[10] && board[10] == board[19]) || //X-Y Wins
-        (board[2] != 0 && board[2] == board[11] && board[11] == board[20]) || //X-Y Wins
-        (board[0] != 0 && board[0] == board[10] && board[10] == board[20]) || //X-Y Wins
-        (board[2] != 0 && board[2] == board[10] && board[10] == board[18]) || //X-Y Wins
-        (board[3] != 0 && board[3] == board[12] && board[12] == board[21]) || //X-Y Wins
-        (board[4] != 0 && board[4] == board[13] && board[13] == board[22]) || //X-Y Wins
-        (board[5] != 0 && board[5] == board[14] && board[14] == board[23]) || //X-Y Wins
-        (board[3] != 0 && board[3] == board[13] && board[13] == board[23]) || //X-Y Wins
-        (board[5] != 0 && board[5] == board[13] && board[13] == board[21]) || //X-Y Wins
-        (board[6] != 0 && board[6] == board[15] && board[15] == board[24]) || //X-Y Wins
-        (board[7] != 0 && board[7] == board[16] && board[16] == board[25]) || //X-Y Wins
-        (board[8] != 0 && board[8] == board[17] && board[17] == board[26]) || //X-Y Wins
-        (board[6] != 0 && board[6] == board[16] && board[16] == board[26]) || //X-Y Wins
-        (board[8] != 0 && board[8] == board[16] && board[16] == board[24]) || //X-Y Wins
-        (board[0] != 0 && board[0] == board[13] && board[13] == board[26]) || //X-Y Wins
-        (board[6] != 0 && board[6] == board[13] && board[13] == board[20]) || //X-Y Wins
-        (board[2] != 0 && board[2] == board[13] && board[13] == board[24]) || //X-Y Wins
-        (board[8] != 0 && board[8] == board[13] && board[13] == board[18]) || //X-Y Wins
-        (board[0] != 0 && board[0] == board[12] && board[12] == board[24]) || //Y-Z Wins
-        (board[6] != 0 && board[6] == board[12] && board[12] == board[18]) || //Y-Z Wins
-        (board[1] != 0 && board[1] == board[13] && board[13] == board[25]) || //Y-Z Wins
-        (board[7] != 0 && board[7] == board[13] && board[13] == board[19]) || //Y-Z Wins
-        (board[2] != 0 && board[2] == board[14] && board[14] == board[26]) || //Y-Z Wins
-        (board[8] != 0 && board[8] == board[14] && board[14] == board[20]) )  //Y-Z Wins
+    for(i = 0; i < 49; i++)
+    {
+        if(i == 0 && board[i][0] != pTurn)
+        {
+            i = 6;
+            continue;
+        }
+        else if(i == )
+    }
+
+    if()
     {
         return true;
     }
@@ -341,7 +323,9 @@ $( document ).ready(function()
         .mouseover(function(event)
         {
             var cellId = event.target.id;
+            console.log(cellId);
             cellId = "#" + cellId;
+
 
             if (checkIfAvailable(board, getCellNum(cellId)))
             {
