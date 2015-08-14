@@ -7,6 +7,10 @@
 /**
  * Chooses the best move for the AI player
  * @param {array} board - The state of the TicTacToe board before decision.
+ * @var {Array} pBoard - A copy of the gameboard where hypothetical moves are tested.
+ * @var {Number} moveValue - Keeps track of current move's score.
+ * @var {Number} beta - Part of alpha-beta pruning to avoid unnecessary recursive calls.
+ * @var {Number} alpha - Part of alpha-beta pruning to avoid unnecessary recursive calls.
  * @returns {Number} bestIndex - The AI choice of moves with highest score.
  * @author William R.A.D. Funk
  */
@@ -16,7 +20,6 @@ function AIchoice(board)
     var bestScore = -10000;
     var alpha = Number.NEGATIVE_INFINITY;
     var beta = Number.POSITIVE_INFINITY;
-
     var moveValue;
     var n = 0;
 
@@ -24,14 +27,17 @@ function AIchoice(board)
     {
         if(board[n] == 0)
         {
-            // A copy of the gameboard where hypothetical
-            // moves are tested.
             var pBoard = [];
             pBoard = board.slice(0);
             pBoard[n] = 2;
             // Finds the score for this move.
-            moveValue = minimax(pBoard, 0, 2);
+            moveValue = minimax(pBoard, 0, 2, alpha, beta);
             pBoard[n] = 0;
+
+            if(moveValue > alpha)
+            {
+                alpha = moveValue;
+            }
 
             if(moveValue > bestScore)
             {
@@ -47,11 +53,17 @@ function AIchoice(board)
  * @param {Array} tboard - The state of the TicTacToe board before decision.
  * @param {Number} depth - Number of levels down from original move.
  * @param {String} pTurn - Which player is making the move at that level.
+ * @param {Number} alpha - Part of alpha-beta pruning to avoid unnecessary recursive calls.
+ * @param {Number} beta - Part of alpha-beta pruning to avoid unnecessary recursive calls.
+ * @var {Array} possibleMoves - keeps track of possible moves at each recursive layer.
+ * @var {Array} scores - keeps track of scores at each recursive layer.
+ * @var {Array} theoreticalBoard - A clone of the gameboard where hypothetical moves are tested.
+ * @var {Number} moveValue - Score for that index at this level.
  * @returns {Number} max - If at an odd numbered level, the max score is returned.
  * @returns {Number} min - If at an even numbered level, the min score is returned.
  * @author William R.A.D. Funk
  */
-function minimax(tboard, depth, pTurn)
+function minimax(tboard, depth, pTurn, alpha, beta)
 {
     // Ensures computer takes the immediate win when present.
     if( (depth == 0) && (checkForWin(tboard, pTurn)) )
@@ -60,9 +72,7 @@ function minimax(tboard, depth, pTurn)
     }
     // Resetting iterative variables separately from for loops for recursion.
     var h = 0, i = 0, q = 0, v = 0;
-    /** @var {Array} possibleMoves - keeps track of possible moves at each recursive layer */
     var possibleMoves = [];
-    /** @var {Array} scores - keeps track of scores at each recursive layer */
     var scores = [  -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000,
                     -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000,
                     -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000 ];
@@ -80,11 +90,9 @@ function minimax(tboard, depth, pTurn)
     {
         // A copy of the gameboard where hypothetical
         // moves are tested.
-        /** @var {Array} theoreticalBoard - A clone of the gameboard where hypothetical moves are tested. */
         var theoreticalBoard = [];
         theoreticalBoard = tboard.slice(0);
         theoreticalBoard[possibleMoves[i]] = pTurn;
-        /** @var {Number} moveValue - Score for that index at this level. */
         var moveValue;
         // Somebody won: negative if not computer, positive otherwise.
         if(checkForWin(theoreticalBoard, pTurn))
@@ -122,6 +130,15 @@ function minimax(tboard, depth, pTurn)
         theoreticalBoard = tboard.slice(0);
         // Score for that move is registered.
         scores[possibleMoves[i]] = moveValue;
+
+        if( (depth % 2 == 1) && (moveValue > alpha) )
+        {
+            alpha = moveValue;
+        }
+        else if( (depth % 2 == 0) && (moveValue < beta) )
+        {
+            beta = moveValue;
+        }
     }
     // If it's a computer layer, the maximum is chosen.
     // Shows how computer will always choose most beneficial

@@ -78,14 +78,14 @@ function attachPlayerToCell(pTurn, square, board)
 /**
  * Changes the turn after previous move is completed.
  * @param {String} pTurn - Current player.
+ * @var {String} player1Color - Background color for player 1.
+ * @var {String} player2Color - Background color for player 2.
  * @returns {String} - Next player's turn.
  * @author William R.A.D. Funk
  */
 function changeTurn(pTurn)
 {
-    /** @var {String} player1Color - Background color for player 1. */
     var player1Color = "#99FF99";
-    /** @var {String} player2Color - Background color for player 2. */
     var player2Color = "#FF99FF";
     if (pTurn === "1")
     {
