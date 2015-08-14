@@ -89,7 +89,7 @@ function minimax(tboard, depth, pTurn)
         // Somebody won: negative if not computer, positive otherwise.
         if(checkForWin(theoreticalBoard, pTurn))
         {
-            moveValue = (depth % 2 == 0) ? (-100 + depth) : (100 - depth);
+            moveValue = (depth % 2 == 0) ? (-1000 + depth) : (1000 - depth);
         }
         // It's a draw
         else if(checkForTie(theoreticalBoard))
