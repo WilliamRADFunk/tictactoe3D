@@ -187,12 +187,16 @@ function checkForWin(board, pTurn)
             if(flag == true)
             {
                 var end = new Date().getTime();
+                console.log(start);
+                console.log(end);
                 console.log(end - start);
                 return true;
             }
         }
     }
     var end = new Date().getTime();
+    console.log(start);
+    console.log(end);
     console.log(end - start);
     return false;
 }
