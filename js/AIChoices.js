@@ -14,6 +14,9 @@ function AIchoice(board)
 {
     var bestIndex = -1;
     var bestScore = -10000;
+    var alpha = Number.NEGATIVE_INFINITY;
+    var beta = Number.POSITIVE_INFINITY;
+
     var moveValue;
     var n = 0;
 
