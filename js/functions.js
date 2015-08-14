@@ -118,7 +118,6 @@ function changeTurn(pTurn)
  */
 function checkForWin(board, pTurn)
 {
-    var start = new Date().getTime();
     // Checks to make sure legitimate player number was passed.
     if (pTurn != "1" && pTurn != "2")
     {
@@ -176,18 +175,10 @@ function checkForWin(board, pTurn)
         (board[2] != 0 && board[2] == board[14] && board[14] == board[26]) || //Y-Z Wins
         (board[8] != 0 && board[8] == board[14] && board[14] == board[20]) )  //Y-Z Wins
     {
-        var end = new Date().getTime();
-        console.log(start);
-        console.log(end);
-        console.log(end - start);
         return true;
     }
     else
     {
-        var end = new Date().getTime();
-        console.log(start);
-        console.log(end);
-        console.log(end - start);
         return false;
     }
 }
