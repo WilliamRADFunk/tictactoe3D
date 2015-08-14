@@ -356,8 +356,11 @@ function selectSquare(cellIndex, board, pTurn)
     // If computer opponent, computer makes move.
     if(pType == "computer" && pTurn == "2")
     {
+        var start = new Date().getTime();
         var nextMove = AIchoice(board);
         pTurn = selectSquare(AIchoice(board), board, pTurn);
+        var end = new Date().getTime();
+        console.log(end - start);
         return pTurn;
     }
     // If human opponent, person gets to make a move.
