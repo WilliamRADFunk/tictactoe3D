@@ -124,70 +124,120 @@ function checkForWin(board, pTurn)
         console.log("ERROR: Player number has exceeded bounds!");
         return false;
     }
-    var i = 0, j = 0;
-    /** @var {Array} wins - A double array of all win scenarios to check against. */
-    var wins = [ [0, 1, 2], [0, 4, 8], [0, 3, 6], [0, 9, 18], [0, 10, 20], [0, 13, 26], [0, 12, 24], [1, 4, 7], [1, 10, 19],
-                 [1, 13, 25], [2, 5, 8], [2, 4, 6], [2, 11, 20], [2, 10, 18], [2, 13, 24], [2, 14, 26], [3, 4, 5], [3, 12, 21],
-                 [3, 13, 23], [4, 13, 22], [5, 14, 23], [5, 13, 21], [6, 7, 8], [6, 15, 24], [6, 16, 26], [6, 13, 20],
-                 [6, 12, 18], [7, 16, 25], [7, 13, 19], [8, 17, 26], [8, 16, 24], [8, 13, 18], [8, 14, 20], [9, 10, 11],
-                 [9, 13, 17], [9, 12, 15], [10, 13, 16], [11, 14, 17], [11, 13, 15], [12, 13, 14], [15, 16, 17], [18, 19, 20],
-                 [18, 22, 26], [18, 21, 24], [19, 22, 25], [20, 23, 26], [20, 22, 24], [21, 22, 23], [24, 25, 26] ];
-    // Checks all win scenarios.
-    for(i = 0; i < 49; i++)
+    // Checks all win scenarios involving index 0, if player has that square.
+    if(board[0] == pTurn)
+        if( (board[1]  == pTurn && board[2]  == pTurn) || //X-Z Wins
+            (board[3]  == pTurn && board[6]  == pTurn) || //X-Z Wins
+            (board[4]  == pTurn && board[8]  == pTurn) || //X-Z Wins
+            (board[9]  == pTurn && board[18] == pTurn) || //X-Y Wins
+            (board[10] == pTurn && board[20] == pTurn) || //X-Y Wins
+            (board[12] == pTurn && board[24] == pTurn) || //Y-Z Wins
+            (board[13] == pTurn && board[26] == pTurn) )  //X-Y Wins
+        {
+            return true;
+        }
+    // Checks all win scenarios involving index 1, if player has that square.
+    if(board[1] == pTurn)
+        if( (board[4]  == pTurn && board[7]  == pTurn) || //X-Z Wins
+            (board[10] == pTurn && board[19] == pTurn) || //X-Y Wins
+            (board[13] == pTurn && board[25] == pTurn) )  //Y-Z Wins
+        {
+            return true;
+        }
+    // Checks all win scenarios involving index 2, if player has that square.
+    if(board[2] == pTurn)
+        if( (board[5]  == pTurn && board[8]   == pTurn) || //X-Z Wins
+            (board[4]  == pTurn && board[6]   == pTurn) || //X-Z Wins
+            (board[10] == pTurn && board[18]  == pTurn) || //X-Y Wins
+            (board[11] == pTurn && board[20]  == pTurn) || //X-Y Wins
+            (board[13] == pTurn && board[24]  == pTurn) || //X-Y Wins
+            (board[14] == pTurn && board[26] == pTurn) )  //Y-Z Wins
+        {
+            return true;
+        }
+    // Checks all win scenarios involving index 3, if player has that square.
+    if(board[3] == pTurn)
     {
-        // Skipping all 0-combos if not player's square
-        if(i == 0 && board[wins[i][0]] != pTurn)
+        if( (board[4]   == pTurn && board[5]  == pTurn) || //X-Z Wins
+            (board[12]  == pTurn && board[21] == pTurn) || //X-Y Wins
+            (board[13] == pTurn && board[23] == pTurn) )  //X-Y Wins
         {
-            i = 6;
+            return true;
         }
-        // Skipping all 1-combos, 3-combos, 9-combos, and 18-combos if not player's square
-        else if( (i == 7 || i == 16 || i == 33 || i == 41) && (board[wins[i][0]] != pTurn) )
+    }
+    // Checks all win scenarios involving index 5, if player has that square.
+    if(board[5] == pTurn)
+        if( (board[13] == pTurn && board[21] == pTurn) || //X-Y Wins
+            (board[14] == pTurn && board[23] == pTurn) )  //X-Y Wins
         {
-            i += 2;
+            return true;
         }
-        // Skipping all 2-combos if not player's square
-        else if(i == 10 && board[wins[i][0]] != pTurn)
+    // Checks all win scenarios involving index 6, if player has that square.
+    if(board[6] == pTurn)
+        if( (board[7]  == pTurn && board[8]  == pTurn) || //X-Z Wins
+            (board[12] == pTurn && board[18] == pTurn) || //Y-Z Wins
+            (board[13] == pTurn && board[20] == pTurn) || //X-Y Wins
+            (board[15] == pTurn && board[24] == pTurn) || //X-Y Wins
+            (board[16] == pTurn && board[26] == pTurn) )  //X-Y Wins
         {
-            i = 15;
+            return true;
         }
-        // Skipping all 4-combos, 10-combos, 12-combos, 15-combos, 19-combos, 21-combos, and 24-combos if not player's square
-        else if( (i == 19 || i == 36 || i == 39 || i == 40 || i == 44 || i == 47 || i == 48) && board[wins[i][0]] != pTurn)
+    // Checks all win scenarios involving index 7, if player has that square.
+    if(board[7] == pTurn)
+        if( (board[13] == pTurn && board[19] == pTurn) || //Y-Z Wins
+            (board[16] == pTurn && board[25] == pTurn) )  //X-Y Wins
         {
-            // Skip
+            return true;
         }
-        // Skipping all 5-combos, 7-combos, 11-combos, and 20-combos if not player's square
-        else if( (i == 20 || i == 27 || i == 37 || i == 45) && board[wins[i][0]] != pTurn)
+    // Checks all win scenarios involving index 8, if player has that square.
+    if(board[8] == pTurn)
+        if( (board[13] == pTurn && board[18] == pTurn) || //X-Y Wins
+            (board[14] == pTurn && board[20] == pTurn) || //Y-Z Wins
+            (board[16] == pTurn && board[24] == pTurn) || //X-Y Wins
+            (board[17] == pTurn && board[26] == pTurn) )  //X-Y Wins
         {
-            i++;
+            return true;
         }
-        // Skipping all 6-combos if not player's square
-        else if(i == 22 && board[wins[i][0]] != pTurn)
+    // Checks all win scenarios involving index 9, if player has that square.
+    if(board[9] == pTurn)
+        if( (board[10] == pTurn && board[11] == pTurn) || //X-Z Wins
+            (board[12] == pTurn && board[15] == pTurn) || //X-Z Wins
+            (board[13] == pTurn && board[17] == pTurn) )  //X-Z Wins
         {
-            i = 26;
+            return true;
         }
-        // Skipping all 8-combos if not player's square
-        else if(i == 29 && board[wins[i][0]] != pTurn)
+    // Checks all win scenarios involving index 11, if player has that square.
+    if(board[11] == pTurn)
+        if( (board[14] == pTurn && board[17] == pTurn) || //X-Z Wins
+            (board[13] == pTurn && board[15] == pTurn) )  //X-Z Wins
         {
-            i = 32;
+            return true;
         }
-        // Player has at least one of squares.
-        // Check all the combinations involving that square.
-        else
+    // Checks all win scenarios involving index 18, if player has that square.
+    if(board[18] == pTurn)
+        if( (board[19] == pTurn && board[20] == pTurn) || //X-Z Wins
+            (board[22] == pTurn && board[26] == pTurn) || //X-Z Wins
+            (board[21] == pTurn && board[24] == pTurn) )  //X-Z Wins
         {
-            var flag = true;
-            for(j = 1; j < 3; j++)
-            {
-                if(board[wins[i][j]] != pTurn)
-                {
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag == true)
-            {
-                return true;
-            }
+            return true;
         }
+    // Checks all win scenarios involving index 20, if player has that square.
+    if(board[20] == pTurn)
+        if( (board[23] == pTurn && board[26] == pTurn) || //X-Z Wins
+            (board[22] == pTurn && board[24] == pTurn) )  //X-Z Wins
+        {
+            return true;
+        }
+    // Checks all non-duplicating win scenarios.
+    if( (board[4]  == pTurn && board[4]  == board[13] && board[13] == board[22]) || //X-Y Wins
+             (board[10] == pTurn && board[10] == board[13] && board[13] == board[16]) || //X-Z Wins
+             (board[12] == pTurn && board[12] == board[13] && board[13] == board[14]) || //X-Z Wins
+             (board[15] == pTurn && board[15] == board[16] && board[16] == board[17]) || //X-Z Wins
+             (board[19] == pTurn && board[19] == board[22] && board[22] == board[25]) || //X-Z Wins
+             (board[21] == pTurn && board[21] == board[22] && board[22] == board[23]) || //X-Z Wins
+             (board[24] == pTurn && board[24] == board[25] && board[25] == board[26]) )  //X-Z Wins
+    {
+        return true;
     }
     return false;
 }
