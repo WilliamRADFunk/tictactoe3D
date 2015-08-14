@@ -175,7 +175,7 @@ function checkForWin(board, pTurn)
         else
         {
             var flag = true;
-            for(j = 0; j < 3; j++)
+            for(j = 1; j < 3; j++)
             {
                 if(board[wins[i][j]] != pTurn)
                 {
