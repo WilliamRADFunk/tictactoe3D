@@ -118,51 +118,83 @@ function changeTurn(pTurn)
  */
 function checkForWin(board, pTurn)
 {
+    var start = new Date().getTime();
     // Checks to make sure legitimate player number was passed.
     if (pTurn != "1" && pTurn != "2")
     {
         console.log("ERROR: Player number has exceeded bounds!");
         return false;
     }
-    var i = 0;
-    var wins = [ [0, 1, 2], [0, 4, 8], [0, 3, 6], [0, 9, 18], [0, 10, 20], [0, 13, 26], [0, 12, 24], 
-                 [1, 4, 7], [1, 10, 19], [1, 13, 25],
-                 [2, 5, 8], [2, 4, 6], [2, 11, 20], [2, 10, 18], [2, 13, 24], [2, 14, 26],
-                 [3, 4, 5], [3, 12, 21], [3, 13, 23],
-                 [4, 13, 12],
-                 [5, 14, 23], [5, 13, 21],
-                 [6, 7, 8], [6, 15, 24], [6, 16, 26], [6, 13, 20], [6, 12, 18],
-                 [7, 16, 25], [7, 13, 19],
-                 [8, 17, 26], [8, 16, 24], [8, 13, 18], [8, 14, 20],
-                 [9, 10, 11], [9, 13, 17], [9, 12, 15],
-                 [10, 13, 16],
-                 [11, 14, 17], [11, 13, 15],
-                 [12, 13, 14],
-                 [15, 16, 17],
-                 [18, 19, 20], [18, 22, 26], [18, 21, 24],
-                 [19, 22, 25],
-                 [20, 23, 26], [20, 22, 24],
-                 [21, 22, 23],
-                 [24, 25, 26] ];
+    var i = 0, j = 0;
+    /** @var {Array} wins - A double array of all win scenarios to check against. */
+    var wins = [ [0, 1, 2], [0, 4, 8], [0, 3, 6], [0, 9, 18], [0, 10, 20], [0, 13, 26], [0, 12, 24], [1, 4, 7], [1, 10, 19],
+                 [1, 13, 25], [2, 5, 8], [2, 4, 6], [2, 11, 20], [2, 10, 18], [2, 13, 24], [2, 14, 26], [3, 4, 5], [3, 12, 21],
+                 [3, 13, 23], [4, 13, 22], [5, 14, 23], [5, 13, 21], [6, 7, 8], [6, 15, 24], [6, 16, 26], [6, 13, 20],
+                 [6, 12, 18], [7, 16, 25], [7, 13, 19], [8, 17, 26], [8, 16, 24], [8, 13, 18], [8, 14, 20], [9, 10, 11],
+                 [9, 13, 17], [9, 12, 15], [10, 13, 16], [11, 14, 17], [11, 13, 15], [12, 13, 14], [15, 16, 17], [18, 19, 20],
+                 [18, 22, 26], [18, 21, 24], [19, 22, 25], [20, 23, 26], [20, 22, 24], [21, 22, 23], [24, 25, 26] ];
     // Checks all win scenarios.
     for(i = 0; i < 49; i++)
     {
-        if(i == 0 && board[i][0] != pTurn)
+        // Skipping all 0-combos if not player's square
+        if(i == 0 && board[wins[i][0]] != pTurn)
         {
             i = 6;
-            continue;
         }
-        else if(i == )
+        // Skipping all 1-combos, 3-combos, 9-combos, and 18-combos if not player's square
+        else if( (i == 7 || i == 16 || i == 33 || i == 41) && (board[wins[i][0]] != pTurn) )
+        {
+            i += 2;
+        }
+        // Skipping all 2-combos if not player's square
+        else if(i == 10 && board[wins[i][0]] != pTurn)
+        {
+            i = 15;
+        }
+        // Skipping all 4-combos, 10-combos, 12-combos, 15-combos, 19-combos, 21-combos, and 24-combos if not player's square
+        else if( (i == 19 || i == 36 || i == 39 || i == 40 || i == 44 || i == 47 || i == 48) && board[wins[i][0]] != pTurn)
+        {
+            // Skip
+        }
+        // Skipping all 5-combos, 7-combos, 11-combos, and 20-combos if not player's square
+        else if( (i == 20 || i == 27 || i == 37 || i == 45) && board[wins[i][0]] != pTurn)
+        {
+            i++;
+        }
+        // Skipping all 6-combos if not player's square
+        else if(i == 22 && board[wins[i][0]] != pTurn)
+        {
+            i = 26;
+        }
+        // Skipping all 8-combos if not player's square
+        else if(i == 29 && board[wins[i][0]] != pTurn)
+        {
+            i = 32;
+        }
+        // Player has at least one of squares.
+        // Check all the combinations involving that square.
+        else
+        {
+            var flag = true;
+            for(j = 0; j < 3; j++)
+            {
+                if(board[wins[i][j]] != pTurn)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag == true)
+            {
+                var end = new Date().getTime();
+                console.log(end - start);
+                return true;
+            }
+        }
     }
-
-    if()
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    var end = new Date().getTime();
+    console.log(end - start);
+    return false;
 }
 
 /**
@@ -323,7 +355,6 @@ $( document ).ready(function()
         .mouseover(function(event)
         {
             var cellId = event.target.id;
-            console.log(cellId);
             cellId = "#" + cellId;
 
 
