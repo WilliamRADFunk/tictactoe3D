@@ -104,22 +104,15 @@ function minimax(tboard, depth, pTurn, alpha, beta)
         {
             moveValue = (0 - depth);
         }
-        // Computer can't think any further.
-        else if(depth >= 1 && possibleMoves.length >= 21)
+        // Computer can't think any further ahead.
+        else if(depth >= 4)
         {
             moveValue = 0;
         }
-        else if(depth >= 2 && possibleMoves.length >= 19)
+        //Prune remaining branches.
+        else if( (depth % 2 == 0) && (alpha >= beta) )
         {
-            moveValue = 0;
-        }
-        else if(depth >= 3 && possibleMoves.length >= 15)
-        {
-            moveValue = 0;
-        }
-        else if(depth >= 4 && possibleMoves.length >= 12)
-        {
-            moveValue = 0;
+            moveValue = beta;
         }
         // Recursively test remaining moves.
         else
