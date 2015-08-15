@@ -105,7 +105,7 @@ function minimax(tboard, depth, pTurn, alpha, beta)
             moveValue = (0 - depth);
         }
         // Computer can't think any further ahead.
-        else if(depth >= 3)
+        else if(depth >= 4)
         {
             moveValue = 0;
         }

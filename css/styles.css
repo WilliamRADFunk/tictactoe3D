@@ -41,9 +41,25 @@ h4
 {
     font-size: 21px;
 }
+#feature button
+{
+    float: left;
+    width: 10%;
+    height: 400px;
+    min-height: 100px;
+    margin: 20px auto 40px auto;
+    font-size: 25px;
+    background-color: #FFB347;
+    border: none;
+    border-radius: 6px;
+}
+#feature button:hover
+{
+    background-color: #FDFD96;
+}
 svg polygon
 {
-    fill: #ffffff;
+    fill: #B19CD9;
     stroke: none;
 }
 svg polyline
@@ -56,13 +72,13 @@ svg polyline
     padding: 0;
     width: auto;
     height: 100%;
-
 }
 #X-Y-Planes
 {
+    float: left;
     max-height: 400px;
     height: auto;
-    width: 100%;
+    width: 80%;
     margin: 20px auto 40px auto;
     display: block;
 }

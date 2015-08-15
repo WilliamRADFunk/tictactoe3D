@@ -307,9 +307,9 @@ function resetBoard(board)
         var cellIdy = "#c" + i + "-y";
         var cellIdz = "#c" + i + "-z";
         board[i] = 0;
-        $(cellIdx).css("fill", "#FFFFFF");
-        $(cellIdy).css("fill", "#FFFFFF");
-        $(cellIdz).css("fill", "#FFFFFF");
+        $(cellIdx).css("fill", "#B19CD9");
+        $(cellIdy).css("fill", "#B19CD9");
+        $(cellIdz).css("fill", "#B19CD9");
     }
     return board;
 }
