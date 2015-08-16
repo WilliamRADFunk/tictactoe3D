@@ -73,14 +73,17 @@ svg polyline
     width: auto;
     height: 100%;
 }
-#X-Y-Planes
+#X-Y-Planes,
+#X-Z-Planes,
+#Y-Z-Planes,
+#All-Planes
 {
     float: left;
     max-height: 400px;
     height: auto;
     width: 80%;
     margin: 20px auto 40px auto;
-    display: block;
+    display: none;
 }
 #wrapper
 {
