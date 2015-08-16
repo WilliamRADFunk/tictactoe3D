@@ -83,7 +83,7 @@ svg polyline
     height: auto;
     width: 80%;
     margin: 20px auto 40px auto;
-    display: block;
+    display: none;
 }
 #wrapper
 {

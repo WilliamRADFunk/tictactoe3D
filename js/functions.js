@@ -52,11 +52,13 @@ function attachPlayerToCell(pTurn, square, board)
     var cellIdx = "#c" + square + "-x";
     var cellIdy = "#c" + square + "-y";
     var cellIdz = "#c" + square + "-z";
+    var cellIda = "#c" + square + "-a";
     if (pTurn == "1")
     {
         $(cellIdx).css("fill", "#99FF99");
         $(cellIdy).css("fill", "#99FF99");
         $(cellIdz).css("fill", "#99FF99");
+        $(cellIda).css("fill", "#99FF99");
         board[square] = 1;
         return board;
     }
@@ -65,6 +67,7 @@ function attachPlayerToCell(pTurn, square, board)
         $(cellIdx).css("fill", "#FF99FF");
         $(cellIdy).css("fill", "#FF99FF");
         $(cellIdz).css("fill", "#FF99FF");
+        $(cellIda).css("fill", "#FF99FF");
         board[square] = 2;
         return board;
     }
@@ -306,10 +309,12 @@ function resetBoard(board)
         var cellIdx = "#c" + i + "-x";
         var cellIdy = "#c" + i + "-y";
         var cellIdz = "#c" + i + "-z";
+        var cellIda = "#c" + i + "-a";
         board[i] = 0;
         $(cellIdx).css("fill", "#B19CD9");
         $(cellIdy).css("fill", "#B19CD9");
         $(cellIdz).css("fill", "#B19CD9");
+        $(cellIda).css("fill", "#B19CD9");
     }
     return board;
 }
@@ -391,11 +396,11 @@ $( document ).ready(function()
      * ActionListeners specific to the cells of the TicTacToe board.
      * @author William R.A.D. Funk
      */
-    //$("#svg-wrapper").append( getView(0) );
-    //$("#svg-wrapper").append( getView(1) );
-    //$("#svg-wrapper").append( getView(2) );
-    //$("#svg-wrapper").append( getView(3) );
-    //changeView(view);
+    $("#svg-wrapper").append( getView(0) );
+    $("#svg-wrapper").append( getView(1) );
+    $("#svg-wrapper").append( getView(2) );
+    $("#svg-wrapper").append( getView(3) );
+    changeView(view);
 
     $("polygon")
         .click(function(event)
