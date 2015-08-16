@@ -391,10 +391,11 @@ $( document ).ready(function()
      * ActionListeners specific to the cells of the TicTacToe board.
      * @author William R.A.D. Funk
      */
-    $("#svg-wrapper").append( getView(0) );
-    $("#svg-wrapper").append( getView(1) );
-    $("#svg-wrapper").append( getView(2) );
-    changeView(view);
+    //$("#svg-wrapper").append( getView(0) );
+    //$("#svg-wrapper").append( getView(1) );
+    //$("#svg-wrapper").append( getView(2) );
+    //$("#svg-wrapper").append( getView(3) );
+    //changeView(view);
 
     $("polygon")
         .click(function(event)
