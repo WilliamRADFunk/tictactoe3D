@@ -440,8 +440,8 @@ $( document ).ready(function()
             }
             else if(this.id == "btn-left" || this.id == "btn-right")
             {
-                var svgTag = document.getElementById("svg-wrapper");
-                svgTag.innerHTML = ( (this.id == "btn-left") ? getView(view - 1) : getView(view + 1) );
+                $( "#svg-wrapper" ).empty();
+                $( "#svg-wrapper" ).append( ( (this.id == "btn-left") ? getView(view - 1) : getView(view + 1) ) );
             }
         });
 });
