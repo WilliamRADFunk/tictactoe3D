@@ -1,11 +1,14 @@
-function getView($document, view)
+function getView(view)
 {
 	switch(view)
 	{
 		case 0:
 		{
-			var svgTag = getElementById("X-Y-Planes");
-			alert(svgTag);
+			return ('<svg id="X-Y-Planes" viewBox="0 0 185 310"><polygon id="c0-z" points="66, 90, 66, 57, 94, 47, 122, 57, 122, 90, 94, 100"/><polygon id="c1-z" points="122, 90, 122, 57, 95, 47, 123, 37, 151, 47, 151, 80"/><polygon id="c2-z" points="151, 80, 151, 47, 124, 37, 152, 27, 180, 37, 180, 70"/><polygon id="c9-z" points="37, 80, 37, 47, 67, 37, 93, 47, 66, 57, 66, 90"/><polygon id="c10-z" points="67, 37, 95, 27, 121, 37, 94, 47"/><polygon id="c11-z" points="96, 27, 124, 17, 151, 27, 123, 37"/><polygon id="c18-z" points="8, 70, 8, 37, 38, 27, 66, 37, 37, 47, 37, 80"/><polygon id="c19-z" points="39, 27, 66, 17, 93, 27, 67, 37"/><polygon id="c20-z" points="67, 17, 96, 7, 123, 17, 96, 27"/><polyline class="z3" points="8, 37, 96, 7, 179, 37, 94, 67, 8, 37"/><polyline class="z3" points="180, 37, 180, 70, 94, 100, 8, 70, 8, 37"/><polyline class="z3" points="94, 67, 94, 100"/><polyline class="z3" points="37, 80, 37, 47, 123, 17"/><polyline class="z3" points="66, 90, 66, 57, 151, 27"/><polyline class="z3" points="122, 90, 122, 57, 39, 27"/><polyline class="z3" points="151, 80, 151, 47, 66, 17"/><polygon id="c3-z" points="66, 190, 66, 157, 94, 147, 122, 157, 122, 190, 94, 200"/><polygon id="c4-z" points="122, 190, 122, 157, 95, 147, 123, 137, 151, 147, 151, 180"/><polygon id="c5-z" points="151, 180, 151, 147, 124, 137, 152, 127, 180, 137, 180, 170"/><polygon id="c12-z" points="37, 180, 37, 147, 67, 137, 93, 147, 66, 157, 66, 190"/><polygon id="c13-z" points="67, 137, 95, 127, 121, 137, 94, 147"/><polygon id="c14-z" points="96, 127, 124, 117, 151, 127, 123, 137"/><polygon id="c21-z" points="8, 170, 8, 137, 38, 127, 66, 137, 37, 147, 37, 180"/><polygon id="c22-z" points="39, 127, 66, 117, 93, 127, 67, 137"/><polygon id="c23-z" points="67, 117, 96, 107, 123, 117, 96, 127"/><polyline class="z2" points="8, 137, 96, 107, 179, 137, 94, 167, 8, 137"/><polyline class="z2" points="180, 137, 180, 170, 94, 200, 8, 170, 8, 137"/><polyline class="z2" points="94, 167, 94, 200"/><polyline class="z2" points="37, 180, 37, 147, 123, 117"/><polyline class="z2" points="66, 190, 66, 157, 151, 127"/><polyline class="z2" points="122, 190, 122, 157, 39, 127"/><polyline class="z2" points="151, 180, 151, 147, 66, 117"/><polygon id="c6-z" points="66, 290, 66, 257, 94, 247, 122, 257, 122, 290, 94, 300"/><polygon id="c7-z" points="122, 290, 122, 257, 95, 247, 123, 237, 151, 247, 151, 280"/><polygon id="c8-z" points="151, 280, 151, 247, 124, 237, 152, 227, 180, 237, 180, 270"/><polygon id="c15-z" points="37, 280, 37, 247, 67, 237, 93, 247, 66, 257, 66, 290"/><polygon id="c16-z" points="67, 237, 95, 227, 121, 237, 94, 247"/><polygon id="c17-z" points="96, 227, 124, 217, 151, 227, 123, 237"/><polygon id="c24-z" points="8, 270, 8, 237, 38, 227, 66, 237, 37, 247, 37, 280"/><polygon id="c25-z" points="39, 227, 66, 217, 93, 227, 67, 237"/><polygon id="c26-z" points="67, 217, 96, 207, 123, 217, 96, 227"/><polyline class="z1" points="8, 237, 96, 207, 179, 237, 94, 267, 8, 237"/><polyline class="z1" points="180, 237, 180, 270, 94, 300, 8, 270, 8, 237"/><polyline class="z1" points="94, 267, 94, 300"/><polyline class="z1" points="37, 280, 37, 247, 123, 217"/><polyline class="z1" points="66, 290, 66, 257, 151, 227"/><polyline class="z1" points="122, 290, 122, 257, 39, 227"/><polyline class="z1" points="151, 280, 151, 247, 66, 217"/></svg>');
+		}
+		default:
+		{
+			alert("Default!!!");
 		}
 	}
 }

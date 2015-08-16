@@ -68,7 +68,7 @@ svg polyline
     stroke: #000000;
     stroke-width: 1;
 }
-.svg-wrapper {
+#svg-wrapper {
     padding: 0;
     width: auto;
     height: 100%;

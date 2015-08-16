@@ -16,8 +16,8 @@ var p2score = 0;
 var pTurn = "1";
 /** @var {String} pType - Is opponent human or AI */
 var pType;
-/** @var {Canvas} canvas - Where the interactive board goes */
-var canvas;
+/** @var {Number} view - Which SVG view is displayed on the screen. */
+var view = -1;
 
 /**
  * Checks to see if chosen square is already taken.
@@ -391,32 +391,33 @@ $( document ).ready(function()
      * ActionListeners specific to the cells of the TicTacToe board.
      * @author William R.A.D. Funk
      */
+    $( "#svg-wrapper" ).append( getView(0) );
+    //$("#svg-wrapper").append(getView(0));
 
-     $("svg polygon")
-        .click(function(event)
+    $("svg polygon")
+    .click(function(event)
+    {
+        var cellId = event.target.id;
+        cellId = "#" + cellId;
+
+        pTurn = selectSquare(getCellNum(cellId), board, pTurn);
+    })
+    .mouseover(function(event)
+    {
+        var cellId = event.target.id;
+        cellId = "#" + cellId;
+
+        if (checkIfAvailable(board, getCellNum(cellId)))
         {
-            var cellId = event.target.id;
-            cellId = "#" + cellId;
-
-            pTurn = selectSquare(getCellNum(cellId), board, pTurn);
-        })
-        .mouseover(function(event)
-        {
-            var cellId = event.target.id;
-            cellId = "#" + cellId;
-
-
-            if (checkIfAvailable(board, getCellNum(cellId)))
-            {
-                $(cellId).css("opacity", '0.5');
-            }
-        })
-        .mouseout(function(event)
-        {
-            var cellId = event.target.id;
-            cellId = "#" + cellId;
-            $(cellId).css("opacity", '1.0');
-        });
+            $(cellId).css("opacity", '0.5');
+        }
+    })
+    .mouseout(function(event)
+    {
+        var cellId = event.target.id;
+        cellId = "#" + cellId;
+        $(cellId).css("opacity", '1.0');
+    });
         
      /**
      * ActionListeners specific to the buttons ("Reset Board" and "AI or Human Opponent")
@@ -436,6 +437,11 @@ $( document ).ready(function()
             {
                 overlay();
                 pType = (this.id == "computer") ? "computer" : "human";
+            }
+            else if(this.id == "btn-left" || this.id == "btn-right")
+            {
+                var svgTag = document.getElementById("svg-wrapper");
+                svgTag.innerHTML = ( (this.id == "btn-left") ? getView(view - 1) : getView(view + 1) );
             }
         });
 });
