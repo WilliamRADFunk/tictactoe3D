@@ -386,14 +386,10 @@ function getCellNum(cellId)
     return cellId.substring(2, cellId.length-2);
 }
 
-/**
- * ActionListeners activated when page is finished loading.
- * @author William R.A.D. Funk
- */
 $( document ).ready(function()
 {
     /**
-     * ActionListeners specific to the cells of the TicTacToe board.
+     * ActionListeners activated when page is finished loading.
      * @author William R.A.D. Funk
      */
     $("#svg-wrapper").append( getView(0) );
@@ -403,6 +399,20 @@ $( document ).ready(function()
     changeView(view);
     setViewButtonHeight(view);
 
+    /**
+     * ActionListeners activated when screen size changes.
+     * @author William R.A.D. Funk
+     */
+    $("#wrapper")
+        .resize(function(event)
+        {
+            setViewButtonHeight(view);
+        });
+
+    /**
+     * ActionListeners specific to the cells of the TicTacToe board.
+     * @author William R.A.D. Funk
+     */
     $("polygon")
         .click(function(event)
         {
@@ -428,8 +438,8 @@ $( document ).ready(function()
             cellId = "#" + cellId;
             $(cellId).css("opacity", '1.0');
         });
-        
-     /**
+
+    /**
      * ActionListeners specific to the buttons ("Reset Board" and "AI or Human Opponent")
      * @author William R.A.D. Funk
      */
