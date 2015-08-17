@@ -20,6 +20,8 @@ function AIchoice(board)
     var bestScore = -10000;
     var alpha = Number.NEGATIVE_INFINITY;
     var beta = Number.POSITIVE_INFINITY;
+    var startTime = new Date().getTime();
+    var endTime = startTime + 5000;
     var moveValue;
     var n = 0;
 
