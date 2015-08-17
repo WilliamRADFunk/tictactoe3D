@@ -107,7 +107,7 @@ function minimax(tboard, depth, pTurn, alpha, beta)
             moveValue = (0 - depth);
         }
         // Computer can't think any further ahead.
-        else if(depth >= 3)
+        else if(depth >= 4)
         {
             moveValue = 0;
         }
@@ -119,7 +119,7 @@ function minimax(tboard, depth, pTurn, alpha, beta)
         // Recursively test remaining moves.
         else
         {
-            moveValue = minimax(theoreticalBoard, depth + 1, pTurn);
+            moveValue = minimax(theoreticalBoard, depth + 1, pTurn, alpha, beta);
         }
         // Reset board clone to avoid recursive variable conflict.
         theoreticalBoard = tboard.slice(0);
