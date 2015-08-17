@@ -410,6 +410,7 @@ $( document ).ready(function()
             cellId = "#" + cellId;
 
             pTurn = selectSquare(getCellNum(cellId), board, pTurn);
+            $(cellId).css("opacity", '1.0');
         })
         .mouseover(function(event)
         {
