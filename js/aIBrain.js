@@ -111,10 +111,9 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
         }
         // If this board layout has been searched before,
         // use previously acquired score value.
-        else if(memoBoard[getKey(theoreticalBoard)])
+        else if( !( typeof memoBoard[getKey(theoreticalBoard)] === "undefined") )
         {
             moveValue = getHash(getKey(theoreticalBoard));
-            alert(moveValue);
         }
         // Computer ran out of time.
         else if(currTime >= cutOffTime)
@@ -184,26 +183,24 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
     }
 }
 
-function getKey(pBoard)
+function getKey(theoreticalBoard)
 {
     var key = "1";
     var i = 0;
 
     for(i = 0; i < 27; i++)
     {
-        key = key.concat(pboard[i]);
+        key = key.concat(theoreticalBoard[i]);
     }
-    alert(key);
     return key;
 }
 
 function getHash(key)
 {
-    alert(memoBoard[key]);
     return memoBoard[key];
 }
 
-function putHash(pBoard, score)
+function putHash(theoreticalBoard, score)
 {
-    memoBoard[getKey(pBoard)] = score;
+    memoBoard[getKey(theoreticalBoard)] = score;
 }
