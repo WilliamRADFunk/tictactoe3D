@@ -21,7 +21,7 @@ function AIchoice(board)
     var alpha = Number.NEGATIVE_INFINITY;
     var beta = Number.POSITIVE_INFINITY;
     var startTime = new Date().getTime();
-    var endTime = startTime + 5000;
+    var cutOffTime = startTime + 4000;
     var moveValue;
     var n = 0;
 
@@ -33,7 +33,7 @@ function AIchoice(board)
             pBoard = board.slice(0);
             pBoard[n] = 2;
             // Finds the score for this move.
-            moveValue = minimax(pBoard, 0, 2, alpha, beta);
+            moveValue = minimax(pBoard, 0, 2, alpha, beta, cutOffTime);
             pBoard[n] = 0;
 
             if(moveValue > alpha)
@@ -65,7 +65,7 @@ function AIchoice(board)
  * @returns {Number} min - If at an even numbered level, the min score is returned.
  * @author William R.A.D. Funk
  */
-function minimax(tboard, depth, pTurn, alpha, beta)
+function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
 {
     // Ensures computer takes the immediate win when present.
     if( (depth == 0) && (checkForWin(tboard, pTurn)) )
@@ -90,6 +90,7 @@ function minimax(tboard, depth, pTurn, alpha, beta)
     }
     for(i = 0; i < possibleMoves.length; i++)
     {
+        var currTime = new Date().getTime();
         // A copy of the gameboard where hypothetical
         // moves are tested.
         var theoreticalBoard = [];
@@ -106,6 +107,11 @@ function minimax(tboard, depth, pTurn, alpha, beta)
         {
             moveValue = (0 - depth);
         }
+        // Computer ran out of time.
+        else if(currTime >= cutOffTime)
+        {
+            moveValue = 0;
+        }
         // Computer can't think any further ahead.
         else if(depth >= 4)
         {
@@ -119,7 +125,7 @@ function minimax(tboard, depth, pTurn, alpha, beta)
         // Recursively test remaining moves.
         else
         {
-            moveValue = minimax(theoreticalBoard, depth + 1, pTurn, alpha, beta);
+            moveValue = minimax(theoreticalBoard, depth + 1, pTurn, alpha, beta, cutOffTime);
         }
         // Reset board clone to avoid recursive variable conflict.
         theoreticalBoard = tboard.slice(0);
