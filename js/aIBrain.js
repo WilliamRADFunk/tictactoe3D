@@ -4,6 +4,8 @@
  *Author: William R.A.D. Funk - http://WilliamRobertFunk.com 
 */
 
+var memoBoard = [];
+
 /**
  * Chooses the best move for the AI player
  * @param {array} board - The state of the TicTacToe board before decision.
@@ -21,7 +23,7 @@ function AIchoice(board)
     var alpha = Number.NEGATIVE_INFINITY;
     var beta = Number.POSITIVE_INFINITY;
     var startTime = new Date().getTime();
-    var cutOffTime = startTime + 4000;
+    var cutOffTime = startTime + 10000;
     var moveValue;
     var n = 0;
 
@@ -72,74 +74,85 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
     {
         return 1000000;
     }
-    // Resetting iterative variables separately from for loops for recursion.
-    var h = 0, i = 0, q = 0, v = 0;
-    var possibleMoves = [];
-    var scores = [  -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000,
-                    -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000,
-                    -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000 ];
-    // It's a new turn, change players.
-    pTurn = (depth % 2 == 0) ? "1" : "2"
-    // Gets all the possible moves.
-    for(h = 0; h < 27; h++)
+    // If this board layout has been searched before,
+    // use previously acquired score value.
+    else if( !( typeof memoBoard[getKey(tboard)] === "undefined") )
     {
-        if(tboard[h] == "0")
-        {
-            possibleMoves.push(h);
-        }
+        var scores = getHash(getKey(tboard));
     }
-    for(i = 0; i < possibleMoves.length; i++)
+    else
     {
-        var currTime = new Date().getTime();
-        // A copy of the gameboard where hypothetical
-        // moves are tested.
-        var theoreticalBoard = [];
-        theoreticalBoard = tboard.slice(0);
-        theoreticalBoard[possibleMoves[i]] = pTurn;
-        var moveValue;
-        // Somebody won: negative if not computer, positive otherwise.
-        if(checkForWin(theoreticalBoard, pTurn))
+        // Resetting iterative variables separately from for loops for recursion.
+        var h = 0, i = 0, q = 0, v = 0;
+        var possibleMoves = [];
+        var scores = [  -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000,
+                        -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000,
+                        -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000, -10000 ];
+        // It's a new turn, change players.
+        pTurn = (depth % 2 == 0) ? "1" : "2"
+        // Gets all the possible moves.
+        for(h = 0; h < 27; h++)
         {
-            moveValue = (depth % 2 == 0) ? (-1000 + depth) : (1000 - depth);
+            if(tboard[h] == "0")
+            {
+                possibleMoves.push(h);
+            }
         }
-        // It's a draw
-        else if(checkForTie(theoreticalBoard))
+        for(i = 0; i < possibleMoves.length; i++)
         {
-            moveValue = (0 - depth);
-        }
-        // Computer ran out of time.
-        else if(currTime >= cutOffTime)
-        {
-            moveValue = 0;
-        }
-        // Computer can't think any further ahead.
-        else if(depth >= 4)
-        {
-            moveValue = 0;
-        }
-        //Prune remaining branches.
-        else if( (depth % 2 == 0) && (alpha >= beta) )
-        {
-            moveValue = beta;
-        }
-        // Recursively test remaining moves.
-        else
-        {
-            moveValue = minimax(theoreticalBoard, depth + 1, pTurn, alpha, beta, cutOffTime);
-        }
-        // Reset board clone to avoid recursive variable conflict.
-        theoreticalBoard = tboard.slice(0);
-        // Score for that move is registered.
-        scores[possibleMoves[i]] = moveValue;
+            var currTime = new Date().getTime();
+            // A copy of the gameboard where hypothetical
+            // moves are tested.
+            var theoreticalBoard = [];
+            theoreticalBoard = tboard.slice(0);
+            theoreticalBoard[possibleMoves[i]] = pTurn;
+            var moveValue;
+            // Somebody won: negative if not computer, positive otherwise.
+            if(checkForWin(theoreticalBoard, pTurn))
+            {
+                moveValue = (depth % 2 == 0) ? (-1000 + depth) : (1000 - depth);
+            }
+            // It's a draw
+            else if(checkForTie(theoreticalBoard))
+            {
+                moveValue = (0 - depth);
+            }
+            // Computer ran out of time.
+            else if(currTime >= cutOffTime)
+            {
+                moveValue = (0 - depth);
+            }
+            // Computer can't think any further ahead.
+            else if(depth >= 5)
+            {
+                moveValue = (0 - depth);
+            }
+            //Prune remaining branches.
+            else if( (depth % 2 == 0) && (alpha >= beta) )
+            {
+                moveValue = beta;
+            }
+            // Recursively test remaining moves.
+            else
+            {
+                moveValue = minimax(theoreticalBoard, depth + 1, pTurn, alpha, beta, cutOffTime);
+            }
+            // Reset board clone to avoid recursive variable conflict.
+            theoreticalBoard = tboard.slice(0);
+            // Score for that move is registered.
+            scores[possibleMoves[i]] = moveValue;
 
-        if( (depth % 2 == 1) && (moveValue > alpha) )
-        {
-            alpha = moveValue;
+            if( (depth % 2 == 1) && (moveValue > alpha) )
+            {
+                alpha = moveValue;
+            }
+            else if( (depth % 2 == 0) && (moveValue < beta) )
+            {
+                beta = moveValue;
+            }
         }
-        else if( (depth % 2 == 0) && (moveValue < beta) )
-        {
-            beta = moveValue;
-        }
+        // Add this board layout to the memoBoard.
+        putHash(tboard, scores);
     }
     // If it's a computer layer, the maximum is chosen.
     // Shows how computer will always choose most beneficial
@@ -171,4 +184,26 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
         }
         return min;
     }
+}
+
+function getKey(theoreticalBoard)
+{
+    var key = "1";
+    var i = 0;
+
+    for(i = 0; i < 27; i++)
+    {
+        key = key.concat(theoreticalBoard[i]);
+    }
+    return key;
+}
+
+function getHash(key)
+{
+    return memoBoard[key];
+}
+
+function putHash(theoreticalBoard, score)
+{
+    memoBoard[getKey(theoreticalBoard)] = score;
 }
