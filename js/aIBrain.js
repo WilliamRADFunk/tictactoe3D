@@ -120,26 +120,12 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
             // Computer ran out of time.
             else if(currTime >= cutOffTime)
             {
-                if(depth % 2 == 1)
-                {
-                    moveValue = -10000;
-                }
-                else
-                {
-                    moveValue = 10000;
-                }
+                moveValue = (0 - depth);
             }
             // Computer can't think any further ahead.
             else if(depth >= 5)
             {
-                if(depth % 2 == 1)
-                {
-                    moveValue = -10000;
-                }
-                else
-                {
-                    moveValue = 10000;
-                }
+                moveValue = (0 - depth);
             }
             //Prune remaining branches.
             else if( (depth % 2 == 0) && (alpha >= beta) )
