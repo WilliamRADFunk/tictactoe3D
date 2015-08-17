@@ -22,6 +22,7 @@ function AIchoice(board)
     var beta = Number.POSITIVE_INFINITY;
     var startTime = new Date().getTime();
     var cutOffTime = startTime + 4000;
+    var memoBoard = [];
     var moveValue;
     var n = 0;
 
@@ -171,4 +172,20 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
         }
         return min;
     }
+}
+
+function getKey(memoBoard)
+{
+    var key;
+    return key.
+}
+
+function getHash(key)
+{
+
+}
+
+function putHash(memoBoard)
+{
+    
 }
