@@ -71,6 +71,39 @@ function changeView(view)
 	}
 }
 
+function setViewButtonHeight(view)
+{
+	var height = 0;
+	switch(view)
+	{
+		case 0:
+		{
+			height = $("#X-Y-Planes").height();
+			break;
+		}
+		case 1:
+		{
+			height = $("#X-Z-Planes").height();
+			break;
+		}
+		case 2:
+		{
+			height = $("#Y-Z-Planes").height();
+			break;
+		}
+		case 3:
+		{
+			height = $("#All-Planes").height();
+			break;
+		}
+		default:
+		{
+			height = 150;
+		}
+	}
+	$("#feature button").css("height", height);
+}
+
 function populateView(board)
 {
 	for(i = 0; i < 27; i++)

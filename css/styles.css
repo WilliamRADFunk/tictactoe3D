@@ -45,8 +45,8 @@ h4
 {
     float: left;
     width: 10%;
-    height: 400px;
-    min-height: 100px;
+    height: 100%;
+    min-height: 150px;
     margin: 20px auto 40px auto;
     font-size: 25px;
     background-color: #FFB347;

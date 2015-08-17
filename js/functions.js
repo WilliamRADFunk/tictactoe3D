@@ -401,6 +401,7 @@ $( document ).ready(function()
     $("#svg-wrapper").append( getView(2) );
     $("#svg-wrapper").append( getView(3) );
     changeView(view);
+    setViewButtonHeight(view);
 
     $("polygon")
         .click(function(event)
@@ -458,6 +459,7 @@ $( document ).ready(function()
                     view = 3;
                 }
                 changeView(view);
+                setViewButtonHeight(view);
             }
         });
 });
