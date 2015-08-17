@@ -200,6 +200,10 @@ h4
     padding: 0px;
     text-align: center;
 }
+#feature button:hover
+{
+    background-color: #FFB347;
+}
 #X-Y-Planes,
 #X-Z-Planes,
 #Y-Z-Planes,
