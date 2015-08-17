@@ -4,6 +4,8 @@
  *Author: William R.A.D. Funk - http://WilliamRobertFunk.com 
 */
 
+var memoBoard = [];
+
 /**
  * Chooses the best move for the AI player
  * @param {array} board - The state of the TicTacToe board before decision.
@@ -22,7 +24,6 @@ function AIchoice(board)
     var beta = Number.POSITIVE_INFINITY;
     var startTime = new Date().getTime();
     var cutOffTime = startTime + 4000;
-    var memoBoard = [];
     var moveValue;
     var n = 0;
 
@@ -108,6 +109,13 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
         {
             moveValue = (0 - depth);
         }
+        // If this board layout has been searched before,
+        // use previously acquired score value.
+        else if(memoBoard[getKey(theoreticalBoard)])
+        {
+            moveValue = getHash(getKey(theoreticalBoard));
+            alert(moveValue);
+        }
         // Computer ran out of time.
         else if(currTime >= cutOffTime)
         {
@@ -128,6 +136,8 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
         {
             moveValue = minimax(theoreticalBoard, depth + 1, pTurn, alpha, beta, cutOffTime);
         }
+        // Add this board layout to the memoBoard.
+        putHash(theoreticalBoard, moveValue);
         // Reset board clone to avoid recursive variable conflict.
         theoreticalBoard = tboard.slice(0);
         // Score for that move is registered.
@@ -174,18 +184,26 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
     }
 }
 
-function getKey(memoBoard)
+function getKey(pBoard)
 {
-    var key;
-    return key.
+    var key = "1";
+    var i = 0;
+
+    for(i = 0; i < 27; i++)
+    {
+        key = key.concat(pboard[i]);
+    }
+    alert(key);
+    return key;
 }
 
 function getHash(key)
 {
-
+    alert(memoBoard[key]);
+    return memoBoard[key];
 }
 
-function putHash(memoBoard)
+function putHash(pBoard, score)
 {
-    
+    memoBoard[getKey(pBoard)] = score;
 }
