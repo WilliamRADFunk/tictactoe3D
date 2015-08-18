@@ -5,7 +5,7 @@ Author: William R.A.D. Funk - http://WilliamRobertFunk.com
 */
 
 /** @var {Array} board - The TicTacToe board. */
-var board = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+var board = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
 /** @var {String} square - The state of a specific TicTacToe square. */
 var square = 0;
 /** @var {Number} p1score - Player 1's score */
@@ -28,7 +28,8 @@ var view = 0;
  */
 function checkIfAvailable(board, square)
 {
-    if (board[square] == 1 || board[square] == 2)
+    // 3 signals inert cube
+    if (board[square] == 1 || board[square] == 2 || board[square] == 3)
     {
         return false;
     }
@@ -134,16 +135,14 @@ function checkForWin(board, pTurn)
             (board[4]  == pTurn && board[8]  == pTurn) || //X-Z Wins
             (board[9]  == pTurn && board[18] == pTurn) || //X-Y Wins
             (board[10] == pTurn && board[20] == pTurn) || //X-Y Wins
-            (board[12] == pTurn && board[24] == pTurn) || //Y-Z Wins
-            (board[13] == pTurn && board[26] == pTurn) )  //X-Y Wins
+            (board[12] == pTurn && board[24] == pTurn) )  //Y-Z Wins
         {
             return true;
         }
     // Checks all win scenarios involving index 1, if player has that square.
     if(board[1] == pTurn)
         if( (board[4]  == pTurn && board[7]  == pTurn) || //X-Z Wins
-            (board[10] == pTurn && board[19] == pTurn) || //X-Y Wins
-            (board[13] == pTurn && board[25] == pTurn) )  //Y-Z Wins
+            (board[10] == pTurn && board[19] == pTurn) )  //X-Y Wins
         {
             return true;
         }
@@ -153,7 +152,6 @@ function checkForWin(board, pTurn)
             (board[4]  == pTurn && board[6]   == pTurn) || //X-Z Wins
             (board[10] == pTurn && board[18]  == pTurn) || //X-Y Wins
             (board[11] == pTurn && board[20]  == pTurn) || //X-Y Wins
-            (board[13] == pTurn && board[24]  == pTurn) || //X-Y Wins
             (board[14] == pTurn && board[26] == pTurn) )  //Y-Z Wins
         {
             return true;
@@ -162,40 +160,23 @@ function checkForWin(board, pTurn)
     if(board[3] == pTurn)
     {
         if( (board[4]   == pTurn && board[5]  == pTurn) || //X-Z Wins
-            (board[12]  == pTurn && board[21] == pTurn) || //X-Y Wins
-            (board[13] == pTurn && board[23] == pTurn) )  //X-Y Wins
+            (board[12]  == pTurn && board[21] == pTurn) )  //X-Y Wins
         {
             return true;
         }
     }
-    // Checks all win scenarios involving index 5, if player has that square.
-    if(board[5] == pTurn)
-        if( (board[13] == pTurn && board[21] == pTurn) || //X-Y Wins
-            (board[14] == pTurn && board[23] == pTurn) )  //X-Y Wins
-        {
-            return true;
-        }
     // Checks all win scenarios involving index 6, if player has that square.
     if(board[6] == pTurn)
         if( (board[7]  == pTurn && board[8]  == pTurn) || //X-Z Wins
             (board[12] == pTurn && board[18] == pTurn) || //Y-Z Wins
-            (board[13] == pTurn && board[20] == pTurn) || //X-Y Wins
             (board[15] == pTurn && board[24] == pTurn) || //X-Y Wins
             (board[16] == pTurn && board[26] == pTurn) )  //X-Y Wins
         {
             return true;
         }
-    // Checks all win scenarios involving index 7, if player has that square.
-    if(board[7] == pTurn)
-        if( (board[13] == pTurn && board[19] == pTurn) || //Y-Z Wins
-            (board[16] == pTurn && board[25] == pTurn) )  //X-Y Wins
-        {
-            return true;
-        }
     // Checks all win scenarios involving index 8, if player has that square.
     if(board[8] == pTurn)
-        if( (board[13] == pTurn && board[18] == pTurn) || //X-Y Wins
-            (board[14] == pTurn && board[20] == pTurn) || //Y-Z Wins
+        if( (board[14] == pTurn && board[20] == pTurn) || //Y-Z Wins
             (board[16] == pTurn && board[24] == pTurn) || //X-Y Wins
             (board[17] == pTurn && board[26] == pTurn) )  //X-Y Wins
         {
@@ -204,15 +185,7 @@ function checkForWin(board, pTurn)
     // Checks all win scenarios involving index 9, if player has that square.
     if(board[9] == pTurn)
         if( (board[10] == pTurn && board[11] == pTurn) || //X-Z Wins
-            (board[12] == pTurn && board[15] == pTurn) || //X-Z Wins
-            (board[13] == pTurn && board[17] == pTurn) )  //X-Z Wins
-        {
-            return true;
-        }
-    // Checks all win scenarios involving index 11, if player has that square.
-    if(board[11] == pTurn)
-        if( (board[14] == pTurn && board[17] == pTurn) || //X-Z Wins
-            (board[13] == pTurn && board[15] == pTurn) )  //X-Z Wins
+            (board[12] == pTurn && board[15] == pTurn) ) //X-Z Wins
         {
             return true;
         }
@@ -232,13 +205,13 @@ function checkForWin(board, pTurn)
             return true;
         }
     // Checks all non-duplicating win scenarios.
-    if( (board[4]  == pTurn && board[4]  == board[13] && board[13] == board[22]) || //X-Y Wins
-             (board[10] == pTurn && board[10] == board[13] && board[13] == board[16]) || //X-Z Wins
-             (board[12] == pTurn && board[12] == board[13] && board[13] == board[14]) || //X-Z Wins
-             (board[15] == pTurn && board[15] == board[16] && board[16] == board[17]) || //X-Z Wins
-             (board[19] == pTurn && board[19] == board[22] && board[22] == board[25]) || //X-Z Wins
-             (board[21] == pTurn && board[21] == board[22] && board[22] == board[23]) || //X-Z Wins
-             (board[24] == pTurn && board[24] == board[25] && board[25] == board[26]) )  //X-Z Wins
+    if( (board[5]  == pTurn && board[14] == pTurn && board[23] == pTurn) || //X-Y Wins
+        (board[7]  == pTurn && board[16] == pTurn && board[25] == pTurn) || //X-Y Wins
+        (board[11] == pTurn && board[14] == pTurn && board[17] == pTurn) || //X-Z Wins
+        (board[15] == pTurn && board[16] == pTurn && board[17] == pTurn) || //X-Z Wins
+        (board[19] == pTurn && board[22] == pTurn && board[25] == pTurn) || //X-Z Wins
+        (board[21] == pTurn && board[22] == pTurn && board[23] == pTurn) || //X-Z Wins
+        (board[24] == pTurn && board[25] == pTurn && board[26] == pTurn) )  //X-Z Wins
     {
         return true;
     }
@@ -306,15 +279,18 @@ function resetBoard(board)
 {
     for(i = 0; i < 27; i++)
     {
-        var cellIdx = "#c" + i + "-x";
-        var cellIdy = "#c" + i + "-y";
-        var cellIdz = "#c" + i + "-z";
-        var cellIda = "#c" + i + "-a";
-        board[i] = 0;
-        $(cellIdx).css("fill", "#B19CD9");
-        $(cellIdy).css("fill", "#B19CD9");
-        $(cellIdz).css("fill", "#B19CD9");
-        $(cellIda).css("fill", "#B19CD9");
+        if(board[i] != 3) // Center square is inert
+        {
+            var cellIdx = "#c" + i + "-x";
+            var cellIdy = "#c" + i + "-y";
+            var cellIdz = "#c" + i + "-z";
+            var cellIda = "#c" + i + "-a";
+            board[i] = 0;
+            $(cellIdx).css("fill", "#B19CD9");
+            $(cellIdy).css("fill", "#B19CD9");
+            $(cellIdz).css("fill", "#B19CD9");
+            $(cellIda).css("fill", "#B19CD9");
+        }
     }
     return board;
 }
