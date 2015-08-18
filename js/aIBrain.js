@@ -23,7 +23,7 @@ function AIchoice(board)
     var alpha = Number.NEGATIVE_INFINITY;
     var beta = Number.POSITIVE_INFINITY;
     var startTime = new Date().getTime();
-    var cutOffTime = startTime + 10000;
+    var cutOffTime = startTime + 120000;
     var moveValue;
     var n = 0;
 
@@ -93,7 +93,7 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
         // Gets all the possible moves.
         for(h = 0; h < 27; h++)
         {
-            if(tboard[h] == "0")
+            if(tboard[h] == 0)
             {
                 possibleMoves.push(h);
             }
@@ -123,7 +123,7 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
                 moveValue = (0 - depth);
             }
             // Computer can't think any further ahead.
-            else if(depth >= 5)
+            else if(depth >= 6)
             {
                 moveValue = (0 - depth);
             }
@@ -162,7 +162,8 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
         var max = -10000
         for(k = 0; k < 27; k++)
         {
-            if( (scores[k] > -10000) && (scores[k] > max) )
+            // 3 signals an inert block
+            if( (scores[k] > -10000) && (scores[k] > max) && (tboard[k] != 3) )
             {
                 max = scores[k];
             }
@@ -177,8 +178,8 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
         var min = 10000
         for(v = 0; v < 27; v++)
         {
-            if( (scores[v] > -10000) && (scores[v] < min) )
-            {
+            // 3 signals an inert block
+            if( (scores[v] > -10000) && (scores[v] < min)  && (tboard[v] != 3)
                 min = scores[v];
             }
         }

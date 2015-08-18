@@ -90,6 +90,13 @@ svg polyline
     margin: 20px auto 40px auto;
     display: none;
 }
+#c13-x,
+#c13-y,
+#c13-z,
+#c13-a
+{
+    fill: #9B111E;
+}
 #human-or-comp
 {
     visibility: visible;
