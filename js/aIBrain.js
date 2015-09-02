@@ -159,7 +159,7 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
     // move for itself.
     if(depth % 2 == 1)
     {
-        var max = -10000
+        var max = -10000;
         for(k = 0; k < 27; k++)
         {
             // 3 signals an inert block
@@ -175,11 +175,12 @@ function minimax(tboard, depth, pTurn, alpha, beta, cutOffTime)
     // move for computer.
     else
     {
-        var min = 10000
+        var min = 10000;
         for(v = 0; v < 27; v++)
         {
             // 3 signals an inert block
-            if( (scores[v] > -10000) && (scores[v] < min)  && (tboard[v] != 3)
+            if( (scores[v] > -10000) && (scores[v] < min)  && (tboard[v] != 3) )
+            {
                 min = scores[v];
             }
         }
