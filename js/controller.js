@@ -300,11 +300,20 @@ function resetBoard(board)
  * and modal for when the computer is thinking.
  * @author William R.A.D. Funk
  */
-function killModal()
+function killOppModal()
 {
-    document.getElementById("human-or-comp").style.visibility = "hidden";
-    document.getElementById("comp-think").style.visibility = "hidden";
-    console.log("Killing modal");
+    $("#human-or-comp").addClass("hidden");
+    console.log("Killing opp modal");
+}
+
+/**
+ * Turns off modal for when the computer is thinking.
+ * @author William R.A.D. Funk
+ */
+function killDecisionModal()
+{
+    $("#comp-think").addClass("hidden");
+    console.log("Killing decision modal");
 }
 
 /**
@@ -314,7 +323,7 @@ function killModal()
 function compThinkModal()
 {
     console.log("Inside Modal");
-    document.getElementById("comp-think").style.visibility = "visible";
+    $("#comp-think").removeClass("hidden");
 }
 
 /**
@@ -352,11 +361,12 @@ function selectSquare(cellIndex, board, pTurn)
     {
         var start = new Date().getTime();
         console.log("Computer Thinking.");
-        compThinkModal();
+        $("#comp-think").removeClass("hidden");
+        $("#comp-think").addClass("visible");
         var nextMove = AIchoice(board);
         console.log("Here now");
         pTurn = selectSquare(AIchoice(board), board, pTurn);
-        killModal();
+        $("#comp-think").addClass("hidden");
         var end = new Date().getTime();
         console.log(end - start);
         return pTurn;
@@ -412,7 +422,6 @@ $( document ).ready(function()
             var cellId = event.target.id;
             cellId = "#" + cellId;
             pTurn = selectSquare(getCellNum(cellId), board, pTurn);
-            killModal();
             $(cellId).css("opacity", '1.0');
         })
         .mouseover(function(event)
@@ -450,7 +459,7 @@ $( document ).ready(function()
             // User chooses human or computer opponent.
             else if(this.id == "human" || this.id == "computer")
             {
-                killModal();
+                killOppModal();
                 pType = (this.id == "computer") ? "computer" : "human";
             }
             // User changes view.
