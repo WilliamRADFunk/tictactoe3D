@@ -97,19 +97,18 @@ svg polyline
 {
     fill: #9B111E;
 }
-#human-or-comp
+#human-or-comp,
+#comp-think
 {
-    visibility: visible;
     position: absolute;
     left: 0px;
     top: 0px;
     width: 100%;
     height: 250%;
     text-align: center;
-    z-index: 1000;
-    background-image:url(../images/background-trans.png);
 }
-#human-or-comp div
+#human-or-comp div,
+#comp-think div
 {
     width: 200px;
     height: 100px;
@@ -119,9 +118,22 @@ svg polyline
     padding: 15px;
     text-align: center;
 }
-#human-or-comp p
+#human-or-comp p,
+#comp-think p
 {
     margin-bottom: 50px;
+}
+#human-or-comp
+{
+    visibility: visible;
+    background-image:url(../images/background-trans.png);
+    z-index: 1000;
+}
+#comp-think
+{
+    visibility: hidden;
+    background-image:url(../images/loader.gif);
+    z-index: 1001;
 }
 .start-over
 {
@@ -175,19 +187,18 @@ h4
 {
     width: 100%;
 }
-#human-or-comp
+#human-or-comp,
+#comp-think
 {
-    visibility: visible;
     position: absolute;
     left: 0px;
     top: 0px;
     width: 100%;
     height: 250%;
     text-align: center;
-    z-index: 1000;
-    background-image:url(../images/background-trans.png);
 }
-#human-or-comp div
+#human-or-comp div,
+#comp-think div
 {
     width: 180px;
     height: 100px;
@@ -197,9 +208,22 @@ h4
     padding: 15px;
     text-align: center;
 }
-#human-or-comp p
+#human-or-comp p,
+#comp-think p
 {
     margin-bottom: 50px;
+}
+#human-or-comp
+{
+    visibility: visible;
+    background-image:url(../images/background-trans.png);
+    z-index: 1000;
+}
+#comp-think
+{
+    visibility: hidden;
+    background-image:url(../images/loader.gif);
+    z-index: 1001;
 }
 #feature button
 {

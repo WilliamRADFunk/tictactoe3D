@@ -296,12 +296,25 @@ function resetBoard(board)
 }
 
 /**
- * Controls modal visibility for human or computer opponent choice.
+ * Turns off modal visibility for human or computer opponent choice,
+ * and modal for when the computer is thinking.
  * @author William R.A.D. Funk
  */
-function overlay()
+function killModal()
 {
     document.getElementById("human-or-comp").style.visibility = "hidden";
+    document.getElementById("comp-think").style.visibility = "hidden";
+    console.log("Killing modal");
+}
+
+/**
+ * Turns on modal for when the computer is thinking.
+ * @author William R.A.D. Funk
+ */
+function compThinkModal()
+{
+    console.log("Inside Modal");
+    document.getElementById("comp-think").style.visibility = "visible";
 }
 
 /**
@@ -338,8 +351,12 @@ function selectSquare(cellIndex, board, pTurn)
     if(pType == "computer" && pTurn == "2")
     {
         var start = new Date().getTime();
+        console.log("Computer Thinking.");
+        compThinkModal();
         var nextMove = AIchoice(board);
+        console.log("Here now");
         pTurn = selectSquare(AIchoice(board), board, pTurn);
+        killModal();
         var end = new Date().getTime();
         console.log(end - start);
         return pTurn;
@@ -394,8 +411,8 @@ $( document ).ready(function()
         {
             var cellId = event.target.id;
             cellId = "#" + cellId;
-
             pTurn = selectSquare(getCellNum(cellId), board, pTurn);
+            killModal();
             $(cellId).css("opacity", '1.0');
         })
         .mouseover(function(event)
@@ -433,7 +450,7 @@ $( document ).ready(function()
             // User chooses human or computer opponent.
             else if(this.id == "human" || this.id == "computer")
             {
-                overlay();
+                killModal();
                 pType = (this.id == "computer") ? "computer" : "human";
             }
             // User changes view.
