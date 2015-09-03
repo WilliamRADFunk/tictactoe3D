@@ -296,34 +296,21 @@ function resetBoard(board)
 }
 
 /**
- * Turns off modal visibility for human or computer opponent choice,
- * and modal for when the computer is thinking.
+ * Turns off modal visibility for human or computer opponent choice.
  * @author William R.A.D. Funk
  */
 function killOppModal()
 {
-    $("#human-or-comp").addClass("hidden");
-    console.log("Killing opp modal");
+    $("#human-or-comp").hide();
 }
 
 /**
- * Turns off modal for when the computer is thinking.
+ * Turns modal on/off for when the computer is thinking.
  * @author William R.A.D. Funk
  */
-function killDecisionModal()
+function toggleDecisionModal()
 {
-    $("#comp-think").addClass("hidden");
-    console.log("Killing decision modal");
-}
-
-/**
- * Turns on modal for when the computer is thinking.
- * @author William R.A.D. Funk
- */
-function compThinkModal()
-{
-    console.log("Inside Modal");
-    $("#comp-think").removeClass("hidden");
+    $("#comp-think").toggle();
 }
 
 /**
@@ -360,13 +347,8 @@ function selectSquare(cellIndex, board, pTurn)
     if(pType == "computer" && pTurn == "2")
     {
         var start = new Date().getTime();
-        console.log("Computer Thinking.");
-        $("#comp-think").removeClass("hidden");
-        $("#comp-think").addClass("visible");
         var nextMove = AIchoice(board);
-        console.log("Here now");
         pTurn = selectSquare(AIchoice(board), board, pTurn);
-        $("#comp-think").addClass("hidden");
         var end = new Date().getTime();
         console.log(end - start);
         return pTurn;
@@ -391,6 +373,8 @@ function getCellNum(cellId)
 
 $( document ).ready(function()
 {
+    $("#comp-think").hide();
+    $("#human-or-comp").show();
     /**
      * ActionListeners activated when page is finished loading.
      * @author William R.A.D. Funk
@@ -421,7 +405,17 @@ $( document ).ready(function()
         {
             var cellId = event.target.id;
             cellId = "#" + cellId;
-            pTurn = selectSquare(getCellNum(cellId), board, pTurn);
+            if(pType == "computer")
+            {
+                console.log("Computer is thinking...");
+                toggleDecisionModal();
+            }
+            setTimeout( (pTurn = selectSquare(getCellNum(cellId), board, pTurn)), 2000 );
+            if(pType == "computer")
+            {
+                console.log("Killing Decision Modal...");
+                toggleDecisionModal();
+            }
             $(cellId).css("opacity", '1.0');
         })
         .mouseover(function(event)
